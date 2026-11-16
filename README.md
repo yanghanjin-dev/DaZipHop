@@ -1,8 +1,8 @@
-# DaZipHop (dazip)
+﻿# DaZipHop (dazip)
 
-배포 버전: **v0.0.1** (압축 엔진 `dazip` 자체 버전: 1.0.0).
+배포 버전: **v0.0.2** (압축 엔진 `dazip` 자체 버전: 1.0.0).
 
-Windows용 다운로드: [DaZipHop v0.0.1](https://github.com/yanghanjin-dev/DaZipHop/releases/tag/v0.0.1)의 `DaZipHop-v0.0.1-windows-x64.zip`을 풀고 `DaZipHop.exe`를 실행하세요.
+Windows용 다운로드: [DaZipHop v0.0.2](https://github.com/yanghanjin-dev/DaZipHop/releases/tag/v0.0.2)의 `DaZipHop-v0.0.2-windows-x64.zip`을 풀고 `DaZipHop.exe`를 실행하세요.
 
 가볍고 빠른 만능 압축/해제 도구. C 파일 하나(약 800줄)로 되어 있고, 압축 엔진은 검증된 **libarchive**와 각 형식의 공식 라이브러리(zlib, liblzma, libzstd, liblz4, bzip2)를 그대로 씁니다.
 
@@ -35,6 +35,15 @@ RAR 만들기는 RARLAB의 독점 규격이라 지원하지 않습니다(오픈�
 단일 스트림 형식(gz, bz2, xz, zst, lz4)은 파일 하나만 압축할 수 있습니다. 진행 중에는 창을 닫을 수 없으며, 결과와 오류는 작업 기록에 표시합니다.
 
 GUI 소스는 `DaZipHop.Gui.cs`이며 Windows PowerShell에서 `powershell -ExecutionPolicy Bypass -File .\build-gui.ps1`로 빌드합니다(.NET Framework 4.x 필요).
+
+### 관리자 권한으로 설치·제거
+
+- 창의 **설치** 버튼을 누르고 Windows 관리자 권한(UAC) 요청을 승인하면 모든 사용자용으로 `%ProgramFiles%\DaZipHop`에 설치합니다. 배포 폴더에 `DaZipHop.exe`와 `dazip.exe`가 모두 있어야 합니다.
+- 시작 메뉴에 바로가기를 만들고 Windows 설정의 **설치된 앱** 목록에 등록합니다.
+- 창의 **제거** 버튼 또는 Windows 설정의 **설치된 앱 → DaZipHop → 제거**로 삭제합니다. 제거에도 관리자 권한 승인이 필요하며, 제거를 시작한 창은 닫힙니다. 다른 DaZipHop 창이 열려 있으면 먼저 닫아 주세요.
+- 제거할 때 두 실행 파일과 시작 메뉴 바로가기, 앱 등록 정보를 삭제합니다. 설치 폴더에 추가한 다른 파일은 보존하며, 제거용 임시 실행 파일은 Windows 재시작 시 정리합니다.
+- UAC 요청을 취소하면 설치·제거를 수행하지 않습니다. 일반 압축·해제에는 관리자 권한을 요청하지 않습니다.
+- 명령줄에서도 `DaZipHop.exe --install`, `DaZipHop.exe --uninstall`을 사용할 수 있습니다.
 
 ### 명령줄로 사용
 

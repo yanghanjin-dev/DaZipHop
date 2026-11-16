@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,16 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-[assembly: System.Reflection.AssemblyVersion("0.0.1.0")]
-[assembly: System.Reflection.AssemblyFileVersion("0.0.1.0")]
+[assembly: System.Reflection.AssemblyVersion("0.0.2.0")]
+[assembly: System.Reflection.AssemblyFileVersion("0.0.2.0")]
 
 static class Program
 {
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
+        if (args.Length == 1 && args[0] == "--install-worker") { Environment.ExitCode = Setup.Install(); return; }
+        if (Setup.Handle(args)) return;
         Application.Run(new MainWindow());
     }
 }
@@ -63,6 +65,8 @@ public class MainWindow : Form
         var source = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 2, ColumnCount = 1 };
         source.RowStyles.Add(new RowStyle(SizeType.Absolute, 38)); source.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         var buttons = new FlowLayoutPanel { Dock = DockStyle.Fill };
+        buttons.Controls.Add(Button("설치", delegate { Setup.Launch(false); }));
+        buttons.Controls.Add(Button("제거", delegate { if (Setup.Launch(true)) Close(); }));
         buttons.Controls.Add(Button("파일 추가", AddFiles));
         buttons.Controls.Add(Button("폴더 추가", AddFolder));
         buttons.Controls.Add(Button("선택 삭제", delegate { foreach (var item in files.SelectedItems.Cast<string>().ToArray()) files.Items.Remove(item); }));
